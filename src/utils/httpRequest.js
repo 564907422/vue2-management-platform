@@ -1,14 +1,14 @@
 // import Vue from 'vue'
 import axios from 'axios'
-// import router from '@/router'
-// import qs from 'qs'
+import router from '../router/index'
+import qs from 'qs'
 import merge from 'lodash/merge'
 
+// const baseUrl = 'http://javaport.darren.com';
 const baseUrl = 'http://localhost:8085';
-const baseUrlTwo = 'http://javaport.bbtree.com';
-
-axios.defaults.withCredentials = true;
-
+// const baseUrl = 'http://javaport.xiaoyaospace.com';
+const baseUrlTwo = 'http://javaport.xiaoyaospace.com';
+// axios.defaults.withCredentials = true;
 const http = axios.create({
   timeout: 1000 * 30,
   withCredentials: true,
@@ -32,9 +32,9 @@ http.interceptors.request.use(config => {
  */
 http.interceptors.response.use(response => {
   console.log(response.data);
-  if (response.data && response.data.code === "401") { //  token失效
+  if (response.data && response.data.code === "30000") { //  token失效
     // clearLoginInfo()
-    this.$router.push({name: 'login'})
+    router.push({name: 'login'})
   }
   return response
 }, error => {

@@ -17,12 +17,13 @@
         </el-form>
         <!--表格-->
         <el-table
+          v-loading="loading"
           :data="tableData"
           border
           style="width: 100%">
           <!--<el-table-column type="selection">-->
           <!--</el-table-column>-->
-          <el-table-column label="序号">
+          <el-table-column label="序号" width="100">
             <template slot-scope="scope">
               {{tableIndex(scope.$index)}}
             </template>
@@ -35,18 +36,17 @@
           <el-table-column
             prop="servicerId"
             label="服务标识"
-            width="180">
+            width="300">
           </el-table-column>
           <el-table-column
             prop="remark"
             label="组件用途">
           </el-table-column>
-          <!--<el-table-column label="操作">-->
-            <!--<template scope="scope">-->
-              <!--<el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
-              <!--<el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
-            <!--</template>-->
-          <!--</el-table-column>-->
+          <el-table-column label="操作">
+            <template scope="scope">
+              <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <div class="block">
           <el-pagination
@@ -63,7 +63,6 @@
   </section>
 </template>
 <script type="text/ecmascript-6">
-  const ERR_OK = "000";
   export default {
     data() {
       return {
@@ -79,20 +78,22 @@
           currentPage: 1,
           pageSize: 20
         },
+        loading: false
       };
     },
     created() {
       this.getTslist();
-      this.$http.get('/api/getOptions').then((response) => {
-        response = response.data;
-        if (response.code === ERR_OK) {
-          this.options = response.datas;
-          this.places = response.places;
-        }
-      });
+      // this.$http.get('/api/getOptions').then((response) => {
+      //   response = response.data;
+      //   if (response.code === ERR_OK) {
+      //     this.options = response.datas;
+      //     this.places = response.places;
+      //   }
+      // });
     },
     methods: {
       getTslist() {
+        this.loading = true;
         this.$http({
           url: this.$http.adornUrl('/paas/manager/tslist'),
           method: 'post',
@@ -105,6 +106,7 @@
           } else {
             this.$message.error(data.msg)
           }
+          this.loading = false;
         })
       },
       onSubmit() {
@@ -121,9 +123,13 @@
         });
       },
       handleEdit(index, row) {
-        this.dialogFormVisible = true;
-        this.form = Object.assign({}, row);
-        this.table_index = index;
+        // this.dialogFormVisible = true;
+        // this.form = Object.assign({}, row);
+        // this.table_index = index;
+        // console.log(row);
+        let sid = row.servicerId || ''
+        // console.log(sid);
+        this.$router.replace({name: 'edit', query: {sid: sid}});
       },
       handleSave() {
         this.$confirm('确认提交吗？', '提示', {
@@ -175,7 +181,7 @@
         console.log(`当前页: ${val}`);
       },
       // table 序号
-      tableIndex (val = 0) {
+      tableIndex(val = 0) {
         const that = this
         if (that.pageObj.currentPage < 2) {
           return (val + 1)

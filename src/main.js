@@ -1,29 +1,24 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 // import axios from 'axios';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import App from './App';
-// import Index from './views/index/index';
-import Table from './views/table/table';
-import Form from './views/form/form';
-import Login from './views/common/login';
 // import ue from './views/editor/editor';
 import 'font-awesome/css/font-awesome.min.css';
-import Mock from './mock/mock';
+// import Mock from './mock/mock';
 import http from './utils/httpRequest';
+import router from './router/index'
+import store from './store'
 
 import '../static/UE/ueditor.config.js'
 import '../static/UE/ueditor.all.min.js'
 import '../static/UE/lang/zh-cn/zh-cn.js'
 import '../static/UE/ueditor.parse.min.js'
 
-Mock.mockData();
-Vue.use(VueRouter);// 安装路由功能
+// Mock.mockData();
 /* eslint-disable no-new */
-Vue.use(VueRouter);
+// Vue.use(VueRouter);
 Vue.prototype.$http = http;
 Vue.use(ElementUI);
 
@@ -45,29 +40,8 @@ Vue.use(ElementUI);
 //   });
 // });
 
-let routes = [
-  {
-    path: '/',
-    component: App,
-    children: [
-      // {path: '/index', component: Index, name: 'index', class: 'fa-line-chart'},
-      {path: '/table', component: Table, name: 'table', class: 'fa-table', meta: {title: '服务列表'}},
-      {path: '/form', component: Form, name: 'form', class: 'fa-newspaper-o', meta: {title: '申请服务'}}
-      // {path: '/editor', component: ue, name: 'editor', class: 'fa-plug'}
-    ]
-  },
-  {
-    path: '/login',
-    component: Login,
-    name: 'login'
-  }
-];
-let router = new VueRouter({
-  // 'mode': 'history', 去掉URL的#号，需要配置服务器http://router.vuejs.org/zh-cn/essentials/history-mode.html
-  'linkActiveClass': 'active',
-  routes
-});
 let app = new Vue({
-  router
+  router,
+  store
 }).$mount('#app');
 export default app;

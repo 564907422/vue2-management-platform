@@ -9,7 +9,7 @@
     </div>
     <div class="login-main-box">
       <div class="login-main clearfix">
-        <div class="login-main-img fl"></div>
+        <!--<div class="login-main-img fl"></div>-->
         <div class="login-main-form-box fr">
           <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()"
                    status-icon>
@@ -66,9 +66,10 @@
               })
             }).then(({data}) => {
               if (data && data.code === '10000') {
-                this.$router.replace({name: 'table'})
+                this.$store.commit("user/updateUserInfo", data.data);
+                this.$router.replace({name: 'index'});
               } else {
-                this.$message.error(data.msg)
+                this.$message.error(data.msg);
               }
             })
           }
@@ -144,7 +145,7 @@
           }
         }
         .login-main-form-box {
-          margin: 40px 40px 0 0;
+          margin: 80px 0 0 0;
           display: inline-block;
           @media screen and (max-width: 576px) {
             display: block;

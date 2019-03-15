@@ -1,6 +1,6 @@
 <template>
   <el-row class="container" style="height: 100%">
-    <v-header :user="user"></v-header>
+    <v-header></v-header>
     <el-col :span="24" class="main">
       <el-row>
         <el-menu :default-active="$route.path" class="mar-l el-menu-vertical-demo el-col el-col-3" light router>
@@ -21,7 +21,7 @@
 </template>
 <script>
   import header from './views/header/header.vue';
-  const ERR_OK = "000";
+  // const ERR_OK = "000";
   export default {
     data () {
       return {
@@ -29,16 +29,23 @@
       };
     },
     created () {
-      this.$http.get('/api/user').then((response) => {
-        response = response.data;
-        if (response.code === ERR_OK) {
-          this.user = response.datas;
-        }
-      });
+      // 在页面加载时读取sessionStorage里的状态信息
+      if (sessionStorage.getItem("store")) {
+        this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem("store"))))
+      }
+
+      if (sessionStorage.getItem("userInfo")) {
+        this.$store.commit("user/updateUserInfo", JSON.parse(sessionStorage.getItem("userInfo")));
+      }
+
+      // 在页面刷新时将vuex里的信息保存到sessionStorage里
+      window.addEventListener("beforeunload", () => {
+        sessionStorage.setItem("store", JSON.stringify(this.$store.state))
+      })
     },
     beforeCreate () {
       if (this.$route.path === '/') {
-        this.$router.push({path: '/index'})
+        this.$router.push({path: '/login'})
       }
     },
     components: {
