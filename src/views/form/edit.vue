@@ -4,25 +4,23 @@
       <el-col :span="24">
         <el-form ref="ruleForm" :model="formInline" :rules="rules" label-width="150px" class="demo-ruleForm">
           <el-form-item label="服务标识" prop="serviceId">
-            <el-input v-model="formInline.serviceId" placeholder="服务标识" style="width: 300px;"></el-input>
+            <el-input v-model="formInline.serviceId" placeholder="服务标识" style="width: 380px;"></el-input>
             <el-button type="primary" style="margin-left: 10px;" @click="submitForm('ruleForm')">查询</el-button>
           </el-form-item>
           <el-form-item label="编辑配置信息" style="height: auto;">
             <el-input
               type="textarea"
-              :rows="2"
               placeholder="编辑配置信息"
               :disabled="true"
-              rows="6"
+              :rows="6"
               v-model="formInline.oldContent" style="width: 500px;">
             </el-input>
           </el-form-item>
           <el-form-item label="编辑新配置信息" style="height: auto;">
             <el-input
               type="textarea"
-              :rows="2"
               placeholder="编辑新配置信息"
-              rows="6"
+              :rows="6"
               v-model="formInline.content" style="width: 500px;">
             </el-input>
           </el-form-item>

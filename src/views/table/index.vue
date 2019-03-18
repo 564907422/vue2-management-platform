@@ -5,7 +5,7 @@
         <!--表单-->
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="服务标识" prop="serviceId">
-            <el-input v-model="formInline.user.serviceId" placeholder="服务标识" style="width: 140px;"></el-input>
+            <el-input v-model="formInline.user.serviceId" placeholder="服务标识" style="width: 340px;"></el-input>
           </el-form-item>
           <el-form-item label="组件用途" prop="note">
             <el-input v-model="formInline.user.note" placeholder="组件用途"></el-input>

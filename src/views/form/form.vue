@@ -14,7 +14,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="技术服务用途:" prop="remark">
-        <el-input type="textarea" v-model="ruleForm.remark"></el-input>
+        <el-input type="textarea" v-model="ruleForm.remark" :rows="6"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
