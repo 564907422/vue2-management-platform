@@ -1,10 +1,10 @@
 <template>
   <div class="login-box">
     <div class="logo-box">
-      <h1 class="logo" title="智慧树">智慧树</h1>
+      <h1 class="logo" title="paas">paas</h1>
     </div>
     <div class="title-box">
-      <h2>智慧树paas管理平台</h2>
+      <h2>paas管理平台</h2>
       <p></p>
     </div>
     <div class="login-main-box">
