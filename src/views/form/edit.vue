@@ -62,7 +62,7 @@
           params: this.$http.adornParams(this.getRepParams())
         }).then(({data}) => {
           if (data && data.code === '10000') {
-            this.formInline.content = JSON.stringify(data.data.serverInfo);
+            this.formInline.content = JSON.stringify(data.data);
             this.formInline.oldContent = this.formInline.content;
           } else {
             this.$message.error(data.msg);
