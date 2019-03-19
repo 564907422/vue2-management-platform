@@ -85,6 +85,10 @@
         return obj
       },
       saveConf() {
+        if (this.formInline.oldContent === this.formInline.content) {
+          this.$message.error('请先编辑配置信息');
+          return false;
+        }
         this.$confirm('确认提交吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
