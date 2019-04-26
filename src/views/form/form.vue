@@ -7,6 +7,11 @@
           <el-radio label="biz_t2">场景2</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="所属环境:" prop="env">
+        <el-radio-group v-model="ruleForm.env">
+          <el-radio  v-for="item in envs" :label="item">{{item}}</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="技术服务类型:" prop="type">
         <el-radio-group v-model="ruleForm.type">
           <el-radio label="1">cache</el-radio>
@@ -32,10 +37,18 @@
           buizCode: '',
           type: '',
           remark: '',
+          env: ''
         },
+        envs: [
+          "local",
+          "dev"
+        ],
         rules: {
           buizCode: [
             {required: true, message: '请选择业务场景', trigger: 'change'}
+          ],
+          env: [
+              {required: true, message: '请选择所属环境', trigger: 'change'}
           ],
           type: [
             {required: true, message: '请选择技术服务类型', trigger: 'change'}
@@ -45,6 +58,9 @@
           ]
         }
       };
+    },
+    created(){
+      this.getEnvList();
     },
     methods: {
       submitForm(formName) {
@@ -74,6 +90,19 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      getEnvList() {
+        this.$http({
+          url: this.$http.adornUrl('/paas/manager/getEnvList'),
+          method: 'get',
+          data: ''
+        }).then(({data}) => {
+          if (data && data.code === '10000') {
+            this.envs = data.data;
+          } else {
+            console.log(data.msg);
+          }
+        })
       }
     }
   }

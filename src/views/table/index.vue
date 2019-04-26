@@ -39,6 +39,11 @@
             width="300">
           </el-table-column>
           <el-table-column
+            prop="env"
+            label="所属环境"
+            width="300">
+          </el-table-column>
+          <el-table-column
             prop="remark"
             label="组件用途">
           </el-table-column>
